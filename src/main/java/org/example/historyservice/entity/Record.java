@@ -1,17 +1,26 @@
 package org.example.historyservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.example.historyservice.entity.enums.Status;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "records", schema = "pius_project_history")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 public class Record {
     @Id
-    private long recordId;
+    private Long recordId;
 
-    private long doctorId;
+    private Long doctorId;
 
     private String doctorFio;
 
