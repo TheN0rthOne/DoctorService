@@ -1,5 +1,6 @@
 package org.example.historyservice.repository;
 
+import jakarta.transaction.Transactional;
 import org.example.historyservice.dto.RecordDTO;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,8 +22,9 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
     List<RecordDTO> getAllRecords(Long userId, String organization,
                                   String specialization, String doctorFIO, Pageable pageable);
 
+    @Transactional
     @Modifying
-    @Query(value = "update pius_project_history.records set status = 'запись отменена' " +
+    @Query(value = "update pius_project_history.records set status = 2 " +
             "where record_id = :recordId", nativeQuery = true)
     void cancelRecord(Long recordId);
 

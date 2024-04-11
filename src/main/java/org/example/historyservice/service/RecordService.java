@@ -55,16 +55,18 @@ public class RecordService {
         try {
             verifyCancelFromDoctorService.cancelRecord(
                     new CancelRecordRequestToDoctorService(record.getDoctorFio(), record.getRecordId(),
-                            record.getDateTime(), record.getSpecialization(), record.getOrganization()));
+                            record.getDoctorId(), record.getDateTime(), record.getSpecialization(), record.getOrganization()));
         } catch (HttpStatusCodeException e) {
             throw new ResponseStatusException(e.getStatusCode(), e.getMessage(), e);
         }
-
-        recordRepository.cancelRecord(body.getRecordId());
+        try {
+            recordRepository.cancelRecord(body.getRecordId());
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         Pageable pageable = PageRequest.of(0, 10);
         return new CancelRecordResponseBody(recordRepository.getAllRecords(userId, null,
                 null, null, pageable), "Отмена прошло успешно");
 
     }
-
 }
