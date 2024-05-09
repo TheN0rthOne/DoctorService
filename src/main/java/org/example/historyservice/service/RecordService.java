@@ -1,12 +1,12 @@
 package org.example.historyservice.service;
 
 
-import org.example.historyservice.dto.RecordDTO;
 import org.example.historyservice.dto.request.CancelRecordRequestBody;
 import org.example.historyservice.dto.request.CancelRecordRequestToDoctorService;
 import org.example.historyservice.dto.request.SearchRecordRequestBody;
 import org.example.historyservice.dto.request.StoreRecordRequestBody;
 import org.example.historyservice.dto.response.CancelRecordResponseBody;
+import org.example.historyservice.dto.response.SearchRecordResponseBody;
 import org.example.historyservice.entity.Record;
 import org.example.historyservice.entity.User;
 import org.example.historyservice.entity.enums.Status;
@@ -19,8 +19,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class RecordService {
@@ -43,10 +41,10 @@ public class RecordService {
                 Status.FUTURE, body.getTime(), user));
     }
 
-    public List<RecordDTO> searchHistory(SearchRecordRequestBody body, Long userId) {
+    public SearchRecordResponseBody searchHistory(SearchRecordRequestBody body, Long userId) {
         Pageable pageable = PageRequest.of(body.getOffset(), body.getLimit());
-        return recordRepository.getAllRecords(userId, body.getOrganization(),
-                body.getSpecialization(), body.getDoctorFIO(), pageable);
+        return new SearchRecordResponseBody(recordRepository.getAllRecords(userId, body.getOrganization(),
+                body.getSpecialization(), body.getDoctorFIO(), pageable));
     }
 
     public CancelRecordResponseBody cancelRecord(CancelRecordRequestBody body, Long userId) {
@@ -61,12 +59,12 @@ public class RecordService {
         }
         try {
             recordRepository.cancelRecord(body.getRecordId());
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
         Pageable pageable = PageRequest.of(0, 10);
         return new CancelRecordResponseBody(recordRepository.getAllRecords(userId, null,
-                null, null, pageable), "Отмена прошло успешно");
+                null, null, pageable), "Отмена прошла успешно");
 
     }
 }

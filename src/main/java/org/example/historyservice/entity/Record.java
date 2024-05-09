@@ -1,6 +1,5 @@
 package org.example.historyservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,4 +34,14 @@ public class Record {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Record(Long recordId, Long doctorId, String doctorFio, String specialization, String organization, Status status, LocalDateTime dateTime) {
+        this.recordId = recordId;
+        this.doctorId = doctorId;
+        this.doctorFio = doctorFio;
+        this.specialization = specialization;
+        this.organization = organization;
+        this.status = status;
+        this.dateTime = dateTime;
+    }
 }

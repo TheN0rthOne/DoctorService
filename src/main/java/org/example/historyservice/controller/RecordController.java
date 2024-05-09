@@ -27,7 +27,7 @@ public class RecordController {
     @GetMapping
     public SearchRecordResponseBody searchHistory(@RequestBody SearchRecordRequestBody body,
                                                   @RequestHeader(name = "user-id") Long userId){
-       return new SearchRecordResponseBody(recordService.searchHistory(body, userId));
+       return recordService.searchHistory(body, userId);
     }
 
     @DeleteMapping

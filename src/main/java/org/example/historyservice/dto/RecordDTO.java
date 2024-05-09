@@ -3,6 +3,7 @@ package org.example.historyservice.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.example.historyservice.entity.Record;
 import org.example.historyservice.entity.enums.Status;
 
 import java.time.LocalDateTime;
@@ -19,4 +20,12 @@ public class RecordDTO {
     private String organization;
     private Status status;
 
+    public RecordDTO(Record record) {
+        this.doctorFIO = record.getDoctorFio();
+        this.recordId = record.getRecordId();
+        this.time = record.getDateTime();
+        this.specialization = record.getSpecialization();
+        this.organization = record.getOrganization();
+        this.status = record.getStatus();
+    }
 }

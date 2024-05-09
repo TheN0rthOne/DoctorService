@@ -18,7 +18,8 @@ public interface RecordRepository extends JpaRepository<Record, Long> {
             "where (u.id = :userId) " +
             "and (:organization is null or r.organization like concat('%', :organization, '%')) " +
             "and (:specialization is null or r.specialization like concat('%', :specialization, '%')) " +
-            "and (:doctorFIO is null or r.doctorFio like concat('%', :doctorFIO, '%'))")
+            "and (:doctorFIO is null or r.doctorFio like concat('%', :doctorFIO, '%'))" +
+            "order by r.doctorFio")
     List<RecordDTO> getAllRecords(Long userId, String organization,
                                   String specialization, String doctorFIO, Pageable pageable);
 
