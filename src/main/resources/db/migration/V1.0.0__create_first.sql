@@ -1,4 +1,5 @@
-CREATE TABLE pius_project_history.user
+CREATE SCHEMA pius_project_history;
+CREATE TABLE pius_project_history.users
 (
     id BIGINT NOT NULL,
     CONSTRAINT pk_user PRIMARY KEY (id)
@@ -17,4 +18,4 @@ CREATE TABLE pius_project_history.records
 );
 
 ALTER TABLE pius_project_history.records
-    ADD CONSTRAINT FK_RECORDS_ON_USER FOREIGN KEY (user_id) REFERENCES pius_project_history."user" (id);
+    ADD CONSTRAINT FK_RECORDS_ON_USER FOREIGN KEY (user_id) REFERENCES pius_project_history.users (id);
